@@ -1,0 +1,7 @@
+1. Kopiere Wordpress database strukturen, gem ikke markup i Databasen, brug 
+    nogenlunde de samme tables og columns som dem. 
+2.Find en måde som er OK at skrive det ind på, kan måske have dét i en markup fil, 
+    og så parse det og indsætte det i databasen, så har jeg også en backup og en stille og rolig måde,
+    ens eget format kan dog godt være rimelig fjollet at lave, så skal man tænke sig godt om, så kunne være 
+    smart at bruge standard markup, og så bruge en client til at læse det ind. Spørgsmålet er bare hvorfor man ikke 
+    bare ville skrive det direkte i HTML så, der ville jeg vel også godt bare kunne finde en parser?
