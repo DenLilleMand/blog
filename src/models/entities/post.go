@@ -1,15 +1,14 @@
 package entities
 
 import (
-	"fmt"
 	"time"
 )
 
 type Visibility int
 
 const (
-	Public  Visibility = iota + 1 //1
-	Private            = iota     //2
+	Public  Visibility = iota + 1
+	Private            = iota
 )
 
 var visibilities = [...]string{
@@ -22,11 +21,11 @@ func (Visibility Visibility) String() string {
 }
 
 type Post struct {
-	Id           int
-	PostAuthor   int
-	PostDate     time
-	PostTitle    string
-	Visibility   int
-	PostModified time
-	Guid         string
+	Id         int
+	Author     int
+	Created    time.Time
+	Title      string
+	Visibility int
+	Updated    time.Time
+	Guid       string
 }
