@@ -1,11 +1,14 @@
 var path = require('path');
 
 module.exports = {
-    entry: './client/main.js',
+    entry: {
+	index: './client/index/index.js',
+	404: './client/404/404.js'
+    },
     output: {
 	path: path.resolve(__dirname, 'dist'),
 	publicPath: '/dist/',
-	filename: 'bundle.js'
+	filename: '[name].bundle.js'
     },
     module: {
 	loaders: [{
@@ -24,9 +27,5 @@ module.exports = {
 	alias: {
 	    vue: 'vue/dist/vue.js'
 	}
-	/*alias: {
-	  'vue$': 'node_modules/vue/dist/vue.js'
-	},
-	extensions: ['.js', '.vue' , '.json']*/
     }
 }
