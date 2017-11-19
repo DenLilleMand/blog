@@ -8,7 +8,7 @@ import (
 	"text/template"
 )
 
-var validGetPath = regexp.MustCompile("^/(frontpage|404|post)/([0-9]+)$")
+var validGetPath = regexp.MustCompile("^/(frontpage|404)$")
 
 func RegisterTemplatesAndRoutes(templates *template.Template) {
 	postController := new(PostController)
