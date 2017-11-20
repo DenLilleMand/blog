@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "realize start",
+    "start": "go run main.go -- --dbuser=denlillemand --dbname=blog --port=3000"
   },
   "repository": {
     "type": "git",

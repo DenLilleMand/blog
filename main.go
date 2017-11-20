@@ -156,5 +156,5 @@ func main() {
 		"level": log.InfoLevel.String(),
 		"time":  time.Now().Format(LOGGING_DATE_FORMAT),
 	}).Infoln(infoMsg)
-	http.ListenAndServe(":"+(*port), router)
+	http.ListenAndServe("127.0.0.1:"+(*port), router)
 }

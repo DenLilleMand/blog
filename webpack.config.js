@@ -1,6 +1,8 @@
-var path = require('path');
+var WebpackDevServer = require("webpack-dev-server");
+var webpack = require("webpack");
+var path = require("path");
 
-module.exports = {
+var compiler = webpack({
     entry: {
 	index: './client/index/index.js',
 	404: './client/404/404.js'
@@ -28,4 +30,27 @@ module.exports = {
 	    vue: 'vue/dist/vue.js'
 	}
     }
-}
+});
+
+var server = new WebpackDevServer(compiler, {
+    contentBase: "/home/denlillemand/go/src/github.com/denlillemand/blog/dist",
+    hot: true,
+    historyApiFallback: false,
+    compress: true,
+    proxy: {
+	"**": "http://localhost:3000"
+    },
+    clientLogLevel: "info",
+    quiet: false,
+    noInfo: false,
+    lazy: true,
+    //filename:"bundle.js",
+    watchOptions: {
+	aggregateTimeout: 300,
+	poll: 1000
+    },
+    publicPath: "/dist/",
+    headers: { "X-Custom-Header":"yes"},
+    stats: { colors: true },
+});
+server.listen(3001, "localhost", function() {});
