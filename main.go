@@ -2,12 +2,16 @@ package main
 
 import (
 	"database/sql"
+	"errors"
 	"fmt"
 	"html/template"
+	"net/http"
 	"os"
 	"path/filepath"
 	"regexp"
 	"time"
+
+	_ "github.com/lib/pq"
 
 	"github.com/alecthomas/kingpin"
 	"github.com/julienschmidt/httprouter"
@@ -20,45 +24,102 @@ const (
 
 var validGetPath = regexp.MustCompile("^/(index|404)$")
 
-func getTemplates(path string) (*template.Template, error) {
-	fmt.Print("")
-	templates := template.New("templates")
-	absPath, _ := filepath.Abs(path)
-	templateFolder, _ := os.Open(absPath)
-	defer templateFolder.Close()
-	templatePathsRaw, _ := templateFolder.Readdir(-1)
-	templatePaths := new([]string)
-	for _, pathInfo := range templatePathsRaw {
-		if !pathInfo.IsDir() {
-			*templatePaths = append(*templatePaths, basePath+"/"+pathInfo.Name())
-		}
-	}
-	templates.ParseFiles(*templatePaths...)
-	return templates
+type Controller struct {
+	templates *template.Template
 }
 
-type PSQLHook struct {
+type PSQLLogHook struct {
 	tableName string
 	DB        *sql.DB
 }
 
-func NewPSQLHook(DB *sql.DB, tableName string) *PSQLHook {
-	return &PSQLHook{}
+func getTemplates(path string) (*template.Template, error) {
+	fmt.Print("")
+	templates := template.New("templates")
+	absPath, err := filepath.Abs(path)
+	if err != nil {
+		return nil, err
+	}
+	templateFolder, err := os.Open(absPath)
+	if err != nil {
+		return nil, err
+	}
+	defer templateFolder.Close()
+	templatePathsRaw, err := templateFolder.Readdir(-1)
+	if err != nil {
+		return nil, err
+	}
+	templatePaths := new([]string)
+	for _, pathInfo := range templatePathsRaw {
+		if !pathInfo.IsDir() {
+			*templatePaths = append(*templatePaths, absPath+"/"+pathInfo.Name())
+		}
+	}
+	templates.ParseFiles(*templatePaths...)
+	return templates, nil
 }
 
-func (psqlHook *PSQLHook) Fire(entry *log.Entry) error {
-	data := entry.Data
-	DB := psqlHook.DB
-	DB.Query("INSERT INTO public.log ")
+func NewPSQLLogHook(DB *sql.DB, tableName string) *PSQLLogHook {
+	return &PSQLLogHook{DB: DB, tableName: tableName}
 }
 
-func (psqlHook *PSQLHook) Levels(entry *log.Entry) []log.Level {
-	return log.AllLevels()
+func (psqlLogHook *PSQLLogHook) Fire(entry *log.Entry) error {
+	msg, ok := entry.Data["msg"]
+	if !ok {
+		return errors.New("Could not get entry.Data['msg'] in PSQLHook.Fire")
+	}
+	level, ok := entry.Data["level"]
+	if !ok {
+		return errors.New("Could not get entry.Data['level'] in PSQLHook.Fire")
+	}
+	var id string
+	err := psqlLogHook.DB.QueryRow("INSERT INTO log (msg, level) VALUES ($1, $2) RETURNING id", msg, level).Scan(&id)
+	if err != nil {
+		return err
+	}
+	if id == "" {
+		return errors.New("psqlLogHook didn't create a valid id")
+	}
+	return nil
+}
+
+func (psqlLogHook *PSQLLogHook) Levels() []log.Level {
+	return log.AllLevels
+}
+
+func (controller *Controller) Index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	templateName := "index.html"
+	template := controller.templates.Lookup(templateName)
+	if template == nil {
+		errMsg := "template lookup on " + templateName + " returned nil"
+		log.WithFields(log.Fields{
+			"msg":   errMsg,
+			"time":  time.Now().Format(LOGGING_DATE_FORMAT),
+			"level": log.ErrorLevel.String(),
+		}).Errorln(errMsg)
+	}
+	template.Execute(w, nil)
+}
+
+func (controller *Controller) NotFound(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	templateName := "404.html"
+	template := controller.templates.Lookup(templateName)
+	if template == nil {
+		errMsg := "template lookup on " + templateName + " returned nil"
+		log.WithFields(log.Fields{
+			"msg":   errMsg,
+			"time":  time.Now().Format(LOGGING_DATE_FORMAT),
+			"level": log.ErrorLevel.String(),
+		}).Errorln(errMsg)
+	}
+	template.Execute(w, nil)
 }
 
 func main() {
-	dbUser := kingpin.Flag("dbuser", "Postgresql username").Short("dbu").String()
-	dbName := kingpin.Flag("dbname", "Postgresql dbname").Short("dbn").String()
+	log.SetOutput(os.Stdout)
+	dbUser := kingpin.Flag("dbuser", "Postgresql username").String()
+	dbName := kingpin.Flag("dbname", "Postgresql dbname").String()
+	port := kingpin.Flag("port", "Webserver port").String()
 	kingpin.Parse()
 
 	connectionString := "user=" + *dbUser + " dbname=" + *dbName + " sslmode=disable"
@@ -71,8 +132,8 @@ func main() {
 		}).Errorln(err.Error())
 	}
 
-	psqlHook := NewPSQLHook(db, "blog")
-	log.AddHook(psqlHook)
+	psqlLogHook := NewPSQLLogHook(db, "log")
+	log.AddHook(psqlLogHook)
 
 	templates, err := getTemplates("templates")
 	if err != nil {
@@ -83,6 +144,17 @@ func main() {
 		}).Errorln(err.Error())
 	}
 
+	controller := &Controller{}
+	controller.templates = templates
 	router := httprouter.New()
-	httprouter.Handle()
+	router.GET("/", controller.Index)
+	router.GET("/404", controller.NotFound)
+
+	infoMsg := "Started server at port:" + (*port)
+	log.WithFields(log.Fields{
+		"msg":   infoMsg,
+		"level": log.InfoLevel.String(),
+		"time":  time.Now().Format(LOGGING_DATE_FORMAT),
+	}).Infoln(infoMsg)
+	http.ListenAndServe(":"+(*port), router)
 }
