@@ -1,8 +1,6 @@
-var WebpackDevServer = require("webpack-dev-server");
-var webpack = require("webpack");
-var path = require("path");
+var path = require('path');
 
-var compiler = webpack({
+module.exports = {
     entry: {
 	index: './client/index/index.js',
 	404: './client/404/404.js'
@@ -27,30 +25,19 @@ var compiler = webpack({
 	    path.resolve('./node_modules')
 	],
 	alias: {
-	    vue: 'vue/dist/vue.js'
+	    'vue$': 'vue/dist/vue.esm.js'
 	}
-    }
-});
+    },
+    devServer: {
+	hot: true,
+	historyApiFallback: false,
+	compress: true,
+	quiet: false,
+	port: 3001,
+	stats: { colors: true },
+	proxy: {
+	    "**":"http://localhost:3000"
+	}
 
-var server = new WebpackDevServer(compiler, {
-    contentBase: "/home/denlillemand/go/src/github.com/denlillemand/blog/dist",
-    hot: true,
-    historyApiFallback: false,
-    compress: true,
-    proxy: {
-	"**": "http://localhost:3000"
-    },
-    clientLogLevel: "info",
-    quiet: false,
-    noInfo: false,
-    lazy: true,
-    //filename:"bundle.js",
-    watchOptions: {
-	aggregateTimeout: 300,
-	poll: 1000
-    },
-    publicPath: "/dist/",
-    headers: { "X-Custom-Header":"yes"},
-    stats: { colors: true },
-});
-server.listen(3001, "localhost", function() {});
+    }
+};
