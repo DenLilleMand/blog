@@ -8,17 +8,17 @@ import Post from 'math/post.vue'
 Vue.component('mainmenu', MainMenu);
 
 const routes = [{ 
-	path: ':subject', 
+	path: '/:subject', 
 	component: Subject, 
 	children: [{
-	    path: ':post',
-	    component: Post
+	    path: '/:post',
+	    component: Post,
+	    props: true
 	}]
 }];
 
 const router = new VueRouter({
     routes,
-    base: "/math/"
 });
 
 Vue.use(VueRouter);

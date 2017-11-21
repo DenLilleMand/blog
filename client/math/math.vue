@@ -3,7 +3,7 @@
 	<mainmenu> </mainmenu>
 	<ul> 
 	    <li v-for="subject in subjects">
-		<router-link v-bind:to="'/math/' + subject.name"> {{subject.name}} </router-link>
+		<router-link v-bind:to="subject.name"> {{subject.name}} </router-link>
 	    </li>
 	</ul>
 	<router-view> </router-view>
@@ -14,9 +14,16 @@
 export default {
   data () {
     return {
-      subjects: [
-	  { name: "Linear algebra" },
-	  { name: "Modelling and analysis of data" }
+      subjects: [{ 
+	      name: "Linear algebra", 
+	      posts: []
+	  }, { 
+	      name: "Modelling and analysis of data", 
+	      posts: [{
+		  name: "Image processing",
+		  date: "2017-11-21 22:17"
+	      }]
+	  }
       ]
     }
   }
