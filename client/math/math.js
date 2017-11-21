@@ -2,18 +2,22 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Math from 'math/math.vue'
 import MainMenu from 'components/mainmenu.vue'
-import Subject from 'math/subject.vue'
-import Post from 'math/post.vue'
+import LinearAlgebra from 'math/linearalgebra.vue'
+import ImageProcessing from 'math/imageprocessing.vue'
+import ModellingAndAnalysisOfData from 'math/modellingandanalysisofdata.vue'
 
 Vue.component('mainmenu', MainMenu);
 
 const routes = [{ 
-	path: '/:subject', 
-	component: Subject, 
+	path: '/linearalgebra', 
+	component: LinearAlgebra, 
+	children: []
+    }, {
+	path: '/modellingandanalysisofdata',
+	component: ModellingAndAnalysisOfData,
 	children: [{
-	    path: '/:post',
-	    component: Post,
-	    props: true
+	    path: '/imageprocessing',
+	    component: ImageProcessing
 	}]
 }];
 

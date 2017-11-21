@@ -15,12 +15,12 @@ export default {
   data () {
     return {
       subjects: [{ 
-	      name: "Linear algebra", 
+	      name: "linearalgebra", 
 	      posts: []
 	  }, { 
-	      name: "Modelling and analysis of data", 
+	      name: "modellingandanalysisofdata", 
 	      posts: [{
-		  name: "Image processing",
+		  name: "imageprocessing",
 		  date: "2017-11-21 22:17"
 	      }]
 	  }

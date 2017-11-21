@@ -1,6 +1,6 @@
 <template>
     <div> 
-	subject
+	Linear Algebra
 	<ul> 
 	    <li v-for="post in posts">
 		<router-link v-bind:to="post.name"> {{post.name}} </router-link>
@@ -13,9 +13,7 @@
 export default {
   data () {
     return {
-	posts: [{
-	    name: "Image processing" 
-	}]
+	posts: [ ]
     }
   }
 }
