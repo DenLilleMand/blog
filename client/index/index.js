@@ -1,7 +1,8 @@
 import Vue from 'vue'
-import App from 'index/index.vue'
+import Index from 'index/index.vue'
 
 new Vue({
-  el: '#app',
-  render: h =>  h(App)
+  el: '#index',
+  template: '<Index />',
+  components: { Index }
 })

@@ -1,14 +1,17 @@
 <template>
-    <div> Hello world ! herpderp </div>
+    <div id="index"> 
+	<MainMenu> </MainMenu>
+    </div>
 </template>
-
 <script>
+import MainMenu from 'components/mainmenu.vue'
 export default {
-  data () {
-    return {
-      msg: 'hello world!'
+    components : {
+	MainMenu
+    },
+    data () {
+	return {}
     }
-  }
 }
 </script>
 

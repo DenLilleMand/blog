@@ -3,7 +3,6 @@ package main
 import (
 	"database/sql"
 	"errors"
-	"fmt"
 	"html/template"
 	"net/http"
 	"os"
@@ -22,7 +21,7 @@ const (
 	LOGGING_DATE_FORMAT = "Mon Jan 2 15:04:05 2006"
 )
 
-var validGetPath = regexp.MustCompile("^/(index|404)$")
+var validGetPath = regexp.MustCompile("^/(index|404|math)$")
 
 type Controller struct {
 	templates *template.Template
@@ -34,7 +33,6 @@ type PSQLLogHook struct {
 }
 
 func getTemplates(path string) (*template.Template, error) {
-	fmt.Print("")
 	templates := template.New("templates")
 	absPath, err := filepath.Abs(path)
 	if err != nil {
@@ -101,6 +99,20 @@ func (controller *Controller) Index(w http.ResponseWriter, r *http.Request, _ ht
 	template.Execute(w, nil)
 }
 
+func (controller *Controller) Math(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	templateName := "math.html"
+	template := controller.templates.Lookup(templateName)
+	if template == nil {
+		errMsg := "template lookup on " + templateName + " returned nil"
+		log.WithFields(log.Fields{
+			"msg":   errMsg,
+			"time":  time.Now().Format(LOGGING_DATE_FORMAT),
+			"level": log.ErrorLevel.String(),
+		}).Errorln(errMsg)
+	}
+	template.Execute(w, nil)
+}
+
 func (controller *Controller) NotFound(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	templateName := "404.html"
 	template := controller.templates.Lookup(templateName)
@@ -113,6 +125,21 @@ func (controller *Controller) NotFound(w http.ResponseWriter, r *http.Request, _
 		}).Errorln(errMsg)
 	}
 	template.Execute(w, nil)
+}
+
+func (controller *Controller) Static(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
+	fileName := params.ByName("filename")
+	if fileName == "" {
+		errMsg := "Static request did not contain a filename"
+		log.WithFields(log.Fields{
+			"msg":   errMsg,
+			"time":  time.Now().Format(LOGGING_DATE_FORMAT),
+			"level": log.ErrorLevel.String(),
+		}).Errorln(errMsg)
+	}
+	fileServer := http.FileServer(http.Dir("dist"))
+	r.URL.Path = fileName
+	fileServer.ServeHTTP(w, r)
 }
 
 func main() {
@@ -144,11 +171,12 @@ func main() {
 		}).Errorln(err.Error())
 	}
 
-	controller := &Controller{}
-	controller.templates = templates
+	controller := &Controller{templates: templates}
 	router := httprouter.New()
 	router.GET("/", controller.Index)
+	router.GET("/math", controller.Math)
 	router.GET("/404", controller.NotFound)
+	router.GET("/static/:filename", controller.Static)
 
 	infoMsg := "Started server at port:" + (*port)
 	log.WithFields(log.Fields{
@@ -156,5 +184,5 @@ func main() {
 		"level": log.InfoLevel.String(),
 		"time":  time.Now().Format(LOGGING_DATE_FORMAT),
 	}).Infoln(infoMsg)
-	http.ListenAndServe("127.0.0.1:"+(*port), router)
+	http.ListenAndServe(":"+(*port), router)
 }
