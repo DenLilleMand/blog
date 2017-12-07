@@ -17,6 +17,7 @@ func Index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 }
 
 func main() {
+	fmt.Print("Trying to run!")
 	router := httprouter.New()
 	router.GET("/", Index)
 	err := http.ListenAndServe(":80", router)
