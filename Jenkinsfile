@@ -16,7 +16,9 @@ pipeline {
 	}
 	stage('deployment') {
 	    steps {
-		sh 'sudo mv index.html /var/www/html/'
+		sh 'sudo cp -rf ./ /home/www/denlillemand.com/'
+		sh 'sudo cd /home/www/denlillemand.com/'
+		sh 'sudo ./blog --port=80 & disown'
 	    }
 	}
     }
