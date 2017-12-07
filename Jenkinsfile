@@ -10,8 +10,13 @@ pipeline {
 	stage('compile') {
 	    steps {
 		dir('./') {
-		    echo "Hello world!"
+		    echo "Compiling"
 		}
+	    }
+	}
+	stage('deployment') {
+	    steps {
+		sh 'sudo mv index.html /var/www/html/'
 	    }
 	}
     }
