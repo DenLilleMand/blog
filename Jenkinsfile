@@ -18,10 +18,8 @@ pipeline {
 	}
 	stage('deployment') {
 	    agent {
-		docker {
-		    dockerfile true
+		dockerfile {
 		    args '-v /home/www/denlillemand.com/blog/:/root/blog/'
-
 		}
 	    }
 	    steps {
