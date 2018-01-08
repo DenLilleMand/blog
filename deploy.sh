@@ -21,7 +21,7 @@ if [ $HAS_SESSION -eq 0 ]
 then
     tmux attach-session -t $USER
 else #$HAS_SESSION = 1
-    tmux -2 new-session -s $USER
+    tmux -2 new-session -s $USER -d
     tmux rename-window -t $USER:0 'Deployed code'
 fi
 
