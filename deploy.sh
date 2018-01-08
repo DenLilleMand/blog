@@ -9,6 +9,7 @@ sudo cp -rf ./static/* /home/www/denlillemand.com/static/
 sudo cp -rf ./templates /home/www/denlillemand.com/templates
 sudo cp -rf ./migrations /home/www/denlillemand.com/migrations
 sudo cp blog /home/www/denlillemand.com/
+sudo cp goose /home/www/denlillemand.com/
 sudo chmod +x /home/www/denlillemand.com/blog
 sudo chmod +x /home/www/denlillemand.com/goose
 
