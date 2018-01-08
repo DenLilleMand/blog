@@ -17,13 +17,13 @@ pipeline {
 	    }
 	}
 	stage('deployment') {
-	    agent (
-		docker (
+	    agent {
+		docker {
 		    image 'ubuntu:latest'
 		    args '-v /home/www/denlillemand.com/blog:/root/'
 
-		)
-	    )
+		}
+	    }
 	    stages {
 		steps {
 		    sh 'sudo chmod +x /root/run.sh'
@@ -33,4 +33,3 @@ pipeline {
 	}
     }
 }
-
