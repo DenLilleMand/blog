@@ -20,8 +20,9 @@ pipeline {
 	}
 	stage('deployment') {
 	    steps {
-		sh 'sudo chmod +x deploy.sh'
-		sh 'deploy.sh'
+		sh 'sudo chmod +x scripts/deploy.sh'
+		sh 'scripts/deploy.sh'
+
 	    }
 	}
     }
