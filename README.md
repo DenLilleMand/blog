@@ -20,6 +20,8 @@ Nice enough jenkins has built in support for running docker containers, i fought
 
 Mainly using: https//jenkins.io/doc/book/pipeline/docker/ as a reference
 
+https://go.cloudbees.com/docs/cloudbees-documentation/cje-user-guide/index.html#docker-workflow
+
 #Installing docker on ubuntu
 https://docs.docker.com/engine/installation/linux/docker-ce/ubuntu/#install-docker-ce-1
 
