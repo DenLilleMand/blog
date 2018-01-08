@@ -25,4 +25,9 @@ else #$HAS_SESSION = 1
     tmux rename-window -t $USER:0 'Deployed code'
 fi
 
-tmux send-keys "/home/denlillemand.com/blog --port=80 --dbuser=denlillemand --dbname=blog --static-dir='/home/www/denlillemand.com/static/' --template-dir='/home/www/denlillemand.com/templates/' "  Enter
+echo "Reached here? do we have a session?"
+tmux has-session -t $USER
+echo $USER
+echo "\n"
+echo ?$
+tmux send-keys "/home/denlillemand.com/blog --port=80 --dbuser=denlillemand --dbname=blog --static-dir='/home/www/denlillemand.com/static/' --template-dir='/home/www/denlillemand.com/templates/' " -t $USER  Enter
