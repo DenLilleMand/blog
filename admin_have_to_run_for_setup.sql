@@ -1,5 +1,0 @@
-CREATE DATABASE blog;
-CREATE USER denlillemand;
-GRANT ALL PRIVILEGES ON DATABASE blog TO denlillemand;
-CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
-
