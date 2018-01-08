@@ -24,11 +24,9 @@ pipeline {
 
 		}
 	    }
-	    stages {
-		steps {
-		    sh 'sudo chmod +x /root/run.sh'
-		    sh '/root/run.sh'
-		}
+	    steps {
+		sh 'sudo chmod +x /root/run.sh'
+		sh '/root/run.sh'
 	    }
 	}
     }
