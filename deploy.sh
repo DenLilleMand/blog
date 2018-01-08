@@ -20,8 +20,8 @@ if [ $HAS_SESSION -eq 0 ]
 then
     tmux attach-session -t $USER
 else #$HAS_SESSION = 1
-    tmux -2 new-session -s $SESSION
-    tmux rename-window -t $SESSION:0 'Deployed code'
+    tmux -2 new-session -s $USER
+    tmux rename-window -t $USER:0 'Deployed code'
+fi
 
 tmux send-keys "/home/denlillemand.com/blog --port=80 --dbuser=denlillemand --dbname=blog --static-dir='/home/www/denlillemand.com/static/' --template-dir='/home/www/denlillemand.com/templates/' "  Enter
-
