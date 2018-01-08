@@ -17,4 +17,4 @@ sudo chmod +x /home/www/denlillemand.com/goose
 
 /home/www/denlillemand.com/goose -dir="migrations/" postgres "user=denlillemand dbname=blog sslmode=disable" up
 
-forever start run.sh
+forever start -c /bin/bash run.sh
