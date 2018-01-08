@@ -12,6 +12,7 @@ sudo cp blog /home/www/denlillemand.com/
 sudo cp run.sh /home/www/denlillemand.com/
 sudo cp goose /home/www/denlillemand.com/
 sudo chmod +x /home/www/denlillemand.com/blog
+sudo chmod +x /home/www/denlillemand.com/run.sh
 sudo chmod +x /home/www/denlillemand.com/goose
 
 /home/www/denlillemand.com/goose -dir="migrations/" postgres "user=denlillemand dbname=blog sslmode=disable" up
