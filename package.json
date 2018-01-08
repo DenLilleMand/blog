@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "realize start",
-    "start": "go run main.go --dbuser=denlillemand --dbname=blog --port=3000",
-    "dev": "webpack-dev-server --hot"
+    "start": "go run main.go",
+    "dev": "webpack-dev-server --hot",
+    "build": "webpack"
   },
   "repository": {
     "type": "git",

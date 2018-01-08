@@ -139,18 +139,18 @@ func (controller *Controller) Static(w http.ResponseWriter, r *http.Request, par
 			"level": log.ErrorLevel.String(),
 		}).Errorln(errMsg)
 	}
-	fileServer := http.FileServer(http.Dir("dist"))
+	fileServer := http.FileServer(http.Dir(controller.staticDir))
 	r.URL.Path = fileName
 	fileServer.ServeHTTP(w, r)
 }
 
 func main() {
 	log.SetOutput(os.Stdout)
-	dbUser := kingpin.Flag("dbuser", "Postgresql username").String()
-	dbName := kingpin.Flag("dbname", "Postgresql dbname").String()
-	port := kingpin.Flag("port", "Webserver port").String()
-	staticDir := kingpin.Flag("static-dir", "Directory for static files").String()
-	templateDir := kingpin.Flag("template-dir", "Directory for the golang templates").String()
+	dbUser := kingpin.Flag("dbuser", "Postgresql username").Default("denlillemand").String()
+	dbName := kingpin.Flag("dbname", "Postgresql dbname").Default("blog").String()
+	port := kingpin.Flag("port", "Webserver port").Default("3000").String()
+	staticDir := kingpin.Flag("static-dir", "Directory for static files").Default("$HOME/go/src/github.com/denlillemand/blog/dist/").String()
+	templateDir := kingpin.Flag("template-dir", "Directory for the golang templates").Default("$HOME/go/src/github.com/denlillemand/blog/templates/").String()
 	kingpin.Parse()
 
 	connectionString := "user=" + *dbUser + " dbname=" + *dbName + " sslmode=disable"
