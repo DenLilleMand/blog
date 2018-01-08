@@ -18,6 +18,15 @@ I found something out about credentials in jenkins aswell, aparently even though
 #Jenkins and docker
 Nice enough jenkins has built in support for running docker containers, i fought a long time trying to get forever.js execute a binary Go file but eventually gave up, i think docker is better as a future time investment anyway.
 
+Remember to run: 
+
+sudo usermod -a -G docker $USER
+sudo usermod -a -G docker jenkins
+
+And remember to reboot the VM for jenkins to get the changes and/or restart the SSH connection if you just want to 
+run the commands your self
+
+
 Mainly using: https//jenkins.io/doc/book/pipeline/docker/ as a reference
 
 https://go.cloudbees.com/docs/cloudbees-documentation/cje-user-guide/index.html#docker-workflow
