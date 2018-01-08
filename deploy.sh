@@ -30,4 +30,4 @@ tmux has-session -t $USER
 echo $USER
 echo "\n"
 echo ?$
-tmux send-keys "/home/denlillemand.com/blog --port=80 --dbuser=denlillemand --dbname=blog --static-dir='/home/www/denlillemand.com/static/' --template-dir='/home/www/denlillemand.com/templates/' " -t $USER  Enter
+tmux send-keys -t $USER:0 "/home/denlillemand.com/blog --port=80 --dbuser=denlillemand --dbname=blog --static-dir='/home/www/denlillemand.com/static/' --template-dir='/home/www/denlillemand.com/templates/' "  Enter
