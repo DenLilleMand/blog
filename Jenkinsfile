@@ -20,13 +20,13 @@ pipeline {
 	    agent {
 		docker {
 		    image 'ubuntu:latest'
-		    args '-v /home/www/denlillemand.com/blog:/root/'
+		    args '-v /home/www/denlillemand.com/blog/:/root/blog/'
 
 		}
 	    }
 	    steps {
-		sh 'sudo chmod +x /root/run.sh'
-		sh '/root/run.sh'
+		    sh 'sudo chmod +x /root/blog/run.sh'
+		    sh '/root/blog/run.sh'
 	    }
 	}
     }
