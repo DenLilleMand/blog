@@ -7,7 +7,6 @@
 --alter role user_name superuser;
 --#then create the extension as the user in a different screen
 --alter role user_name nosuperuser;
-CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 CREATE TYPE loglevel AS ENUM('debug', 'info', 'warning', 'error', 'fatal', 'panic');
 
 CREATE TABLE log (
