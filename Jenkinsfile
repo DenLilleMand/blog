@@ -25,7 +25,7 @@ pipeline {
 		}
 	    }
 	    steps {
-		    sh 'sudo chmod +x /root/blog/run.sh'
+		    sh 'chmod +x /root/blog/run.sh'
 		    sh '/root/blog/run.sh'
 	    }
 	}
