@@ -19,7 +19,7 @@ pipeline {
 	stage('deployment') {
 	    agent {
 		docker {
-		    image 'ubuntu:latest'
+		    dockerfile true
 		    args '-v /home/www/denlillemand.com/blog/:/root/blog/'
 
 		}
