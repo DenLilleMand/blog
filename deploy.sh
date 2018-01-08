@@ -9,6 +9,6 @@ sudo cp -rf ./templates /home/www/denlillemand.com/templates
 sudo cp blog /home/www/denlillemand.com/
 sudo chmod +x /home/www/denlillemand.com/blog
 cd /home/www/denlillemand.com
-./blog --port=80 --static='/home/www/denlillemand.com/static/' --templates='/home/www/denlillemand.com/templates/' & disown
+./blog --port=80 --dbuser=denlillemand --dbname=blog --static='/home/www/denlillemand.com/static/' --templates='/home/www/denlillemand.com/templates/' & disown
 
 
