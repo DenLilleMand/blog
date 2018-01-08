@@ -15,6 +15,7 @@ sudo chmod +x /home/www/denlillemand.com/goose
 
 /home/www/denlillemand.com/goose -dir="migrations/" postgres "user=denlillemand dbname=blog sslmode=disable" up
 
+tmux has-session -t $USER
 HAS_SESSION=$?
 if [ $HAS_SESSION -eq 0 ]
 then
