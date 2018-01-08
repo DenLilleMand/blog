@@ -1,22 +1,23 @@
 <template>
     <div id="index"> 
 	<MainMenu> </MainMenu>
+	<ContactBox> </ContactBox>
     </div>
 </template>
 <script>
 import MainMenu from 'components/mainmenu.vue'
+import ContactBox from 'components/contactbox.vue'
+import fontawesome from 'fontawesome/fontawesome-all.min.js'
 export default {
     components : {
-	MainMenu
+	MainMenu,
+	ContactBox
     },
     data () {
-	return {}
+	return {
+	}
     }
 }
 </script>
-
 <style>
-.message {
-  color: blue;
-}
 </style>
