@@ -9,6 +9,8 @@ sudo cp -rf ./templates /home/www/denlillemand.com/templates
 sudo cp blog /home/www/denlillemand.com/
 sudo chmod +x /home/www/denlillemand.com/blog
 cd /home/www/denlillemand.com
+#TODO: Use some sort of container like e.g. foreverjs or scripted tmux.
+#TODO: Create the postgresql DB
 ./blog --port=80 --dbuser=denlillemand --dbname=blog --static-dir='/home/www/denlillemand.com/static/' --template-dir='/home/www/denlillemand.com/templates/' & disown
 
 
