@@ -15,6 +15,7 @@ sudo chmod +x /home/www/denlillemand.com/goose
 
 /home/www/denlillemand.com/goose -dir="migrations/" postgres "user=denlillemand dbname=blog sslmode=disable" up
 
+tmux -d
 tmux has-session -t $USER
 HAS_SESSION=$?
 if [ $HAS_SESSION -eq 0 ]
@@ -30,4 +31,4 @@ tmux has-session -t $USER
 echo $USER
 echo "\n"
 echo ?$
-tmux send-keys -t $USER:0 "/home/denlillemand.com/blog --port=80 --dbuser=denlillemand --dbname=blog --static-dir='/home/www/denlillemand.com/static/' --template-dir='/home/www/denlillemand.com/templates/' "  Enter
+tmux send-keys -t $USER:0 "/home/www/denlillemand.com/blog --port=80 --dbuser=denlillemand --dbname=blog --static-dir='/home/www/denlillemand.com/static/' --template-dir='/home/www/denlillemand.com/templates/' "  Enter
