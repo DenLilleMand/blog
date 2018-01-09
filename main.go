@@ -7,7 +7,6 @@ import (
 	"html/template"
 	"net/http"
 	"os"
-	"path/filepath"
 	"regexp"
 	"time"
 
@@ -37,11 +36,7 @@ type PSQLLogHook struct {
 
 func getTemplates(path string) (*template.Template, error) {
 	templates := template.New("templates")
-	absPath, err := filepath.Abs(path)
-	if err != nil {
-		return nil, err
-	}
-	templateFolder, err := os.Open(absPath)
+	templateFolder, err := os.Open(path)
 	if err != nil {
 		return nil, err
 	}
@@ -53,8 +48,8 @@ func getTemplates(path string) (*template.Template, error) {
 	templatePaths := new([]string)
 	for _, pathInfo := range templatePathsRaw {
 		if !pathInfo.IsDir() {
-			fmt.Printf("%s + / + %s \n", absPath, pathInfo.Name())
-			*templatePaths = append(*templatePaths, absPath+"/"+pathInfo.Name())
+			fmt.Printf("%s%s \n", path, pathInfo.Name())
+			*templatePaths = append(*templatePaths, path+pathInfo.Name())
 		}
 	}
 	templates.ParseFiles(*templatePaths...)
@@ -156,6 +151,9 @@ func main() {
 	kingpin.Parse()
 	fmt.Printf("staticDir: %s templatesDir: %s \n", (*staticDir), (*templateDir))
 
+	staticDirExpanded := os.ExpandEnv((*staticDir))
+	templateDirExpanded := os.ExpandEnv((*templateDir))
+
 	connectionString := "user=" + *dbUser + " dbname=" + *dbName + " sslmode=disable"
 	db, err := sql.Open("postgres", connectionString)
 	if err != nil {
@@ -177,7 +175,7 @@ func main() {
 	psqlLogHook := NewPSQLLogHook(db, "log")
 	log.AddHook(psqlLogHook)
 
-	templates, err := getTemplates((*templateDir))
+	templates, err := getTemplates(templateDirExpanded)
 	if err != nil {
 		fmt.Printf("get templates\n")
 		log.WithFields(log.Fields{
@@ -187,7 +185,7 @@ func main() {
 		}).Errorln(err.Error())
 	}
 
-	controller := &Controller{templates: templates, staticDir: (*staticDir), templateDir: (*templateDir)}
+	controller := &Controller{templates: templates, staticDir: staticDirExpanded, templateDir: templateDirExpanded}
 	router := httprouter.New()
 	router.GET("/", controller.Index)
 	router.GET("/math", controller.Math)
