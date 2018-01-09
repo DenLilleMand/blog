@@ -16,9 +16,9 @@ pipeline {
 	}
 	stage('deployment') {
 	    steps {
-		sh 'sudo chmod +x run.sh'
+		sh 'sudo chmod +x /home/www/denlillemand.com/run.sh'
 		sh 'forever stopall'
-		sh 'forever start -c /bin/bash run.sh'
+		sh 'forever start -c /bin/bash /home/www/denlillemand.com/run.sh'
 	    }
 	}
     }

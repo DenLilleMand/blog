@@ -3,6 +3,7 @@ package main
 import (
 	"database/sql"
 	"errors"
+	"fmt"
 	"html/template"
 	"net/http"
 	"os"
@@ -175,6 +176,7 @@ func main() {
 		}).Errorln(err.Error())
 	}
 
+	fmt.Printf("staticDir: %s templatesDir: %s \n", (*staticDir), (*templateDir))
 	controller := &Controller{templates: templates, staticDir: (*staticDir), templateDir: (*templateDir)}
 	router := httprouter.New()
 	router.GET("/", controller.Index)
