@@ -2,6 +2,7 @@
 
 [![Build Status](http://ec2-35-177-116-159.eu-west-2.compute.amazonaws.com:8080/job/blog/master/badge/icon)](http://ec2-35-177-116-159.eu-west-2.compute.amazonaws.com:8080/job/blog/master)
 
+[![Build Status](http://ec2-35-177-116-159.eu-west-2.compute.amazonaws.com:8080/job/blog/job/master/98/badge/icon)](http://ec2-35-177-116-159.eu-west-2.compute.amazonaws.com:8080/job/blog/job/master/98/)
 
 # Namecheap setup of dns
 for jenkins.denlillemand.com i just did a URL redirect record, which amazingly works okay with the jenkins github plugin.
