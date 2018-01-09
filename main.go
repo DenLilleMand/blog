@@ -154,6 +154,7 @@ func main() {
 	staticDir := kingpin.Flag("static-dir", "Directory for static files").Default("$HOME/go/src/github.com/denlillemand/blog/dist/").String()
 	templateDir := kingpin.Flag("template-dir", "Directory for the golang templates").Default("$HOME/go/src/github.com/denlillemand/blog/templates/").String()
 	kingpin.Parse()
+	fmt.Printf("staticDir: %s templatesDir: %s \n", (*staticDir), (*templateDir))
 
 	connectionString := "user=" + *dbUser + " dbname=" + *dbName + " sslmode=disable"
 	db, err := sql.Open("postgres", connectionString)
@@ -163,6 +164,12 @@ func main() {
 			"time":  time.Now().Format(LOGGING_DATE_FORMAT),
 			"level": log.ErrorLevel.String(),
 		}).Errorln(err.Error())
+	}
+	defer db.Close()
+
+	err = db.Ping()
+	if err != nil {
+		panic(err)
 	}
 
 	psqlLogHook := NewPSQLLogHook(db, "log")
@@ -177,7 +184,6 @@ func main() {
 		}).Errorln(err.Error())
 	}
 
-	fmt.Printf("staticDir: %s templatesDir: %s \n", (*staticDir), (*templateDir))
 	controller := &Controller{templates: templates, staticDir: (*staticDir), templateDir: (*templateDir)}
 	router := httprouter.New()
 	router.GET("/", controller.Index)
