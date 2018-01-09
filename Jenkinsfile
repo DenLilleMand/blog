@@ -16,9 +16,10 @@ pipeline {
 	}
 	stage('deployment') {
 	    steps {
+		sh 'hostname'
 		sh 'sudo chmod +x /home/www/denlillemand.com/run.sh'
-		sh 'forever stopall'
-		sh 'forever start -c /bin/bash /home/www/denlillemand.com/run.sh'
+		sh 'cd /home/www/denlillemand.com && forever stopall'
+		sh 'cd /home/www/denlillemand.com && forever start -c /bin/bash /home/www/denlillemand.com/run.sh'
 	    }
 	}
     }
