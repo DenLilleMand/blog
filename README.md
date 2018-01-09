@@ -1,6 +1,8 @@
 # Build and code status
 [![Build Status](http://ec2-35-177-116-159.eu-west-2.compute.amazonaws.com:8080/job/blog/job/master/badge/icon)](http://ec2-35-177-116-159.eu-west-2.compute.amazonaws.com:8080/job/blog/job/master/)
 
+![./testcoverage.svg](./testcoverage.svg)
+
 
 # Setting up correct githooks for project
 $ chmod +x setup\_project.sh
