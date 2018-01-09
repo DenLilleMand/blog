@@ -1,6 +1,20 @@
 # Build and code status
 [![Build Status](http://ec2-35-177-116-159.eu-west-2.compute.amazonaws.com:8080/job/blog/job/master/badge/icon)](http://ec2-35-177-116-159.eu-west-2.compute.amazonaws.com:8080/job/blog/job/master/)
 
+# Setting up correct githooks for project
+$ chmod +x setup\_project.sh
+$ ./setup\_project.sh
+
+# Setting up the correct golang binaries
+
+Install:
+
+1. https://github.com/pressly/goose  (For the migrations)
+
+2. Github realize
+
+3. Run go get ./...  (of course, which should fetch the http router, logrus etc.)
+
 # Namecheap setup of dns
 for jenkins.denlillemand.com i just did a URL redirect record, which amazingly works okay with the jenkins github plugin.
 
@@ -45,15 +59,15 @@ https://docs.docker.com/engine/installation/linux/docker-ce/ubuntu/#install-dock
 
 # Setting up database
 
-1.CREATE DATABASE blog;
+1. CREATE DATABASE blog;
 
-2.CREATE USER denlillemand;
+2. CREATE USER denlillemand;
 
-3.GRANT ALL PRIVILEGES ON DATABASE blog TO denlillemand;
+3. GRANT ALL PRIVILEGES ON DATABASE blog TO denlillemand;
 
 Remember to log into the 'blog' database before running the following:
 
-4.CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+4. CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 
 # Creating migrations
@@ -68,13 +82,15 @@ ref: https://www.kaihag.com/https-and-go/
 For the build status badge i used the jenkins plugin: embeddable-build-status-badges, 
 then i changed the security on the jenkins server to matrix-based and for the anonymous user tagged the ones:
 
-Overordnet: Read
+1. Overordnet: Read
 
-Job: ViewStatus
+2. Job: ViewStatus
 
-Job: Read
+3. Job: Read
 
-Visninger: Read
+4. Visninger: Read
 
-
+Then i went into the job, and then inside of the branch(because of i have a multi branch project it is nested further) and 
+there is a new icon called embeddable build status blabla, on that page it gives various embeddables that you can copy paste into 
+html, markdown etc.
 
