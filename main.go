@@ -53,6 +53,7 @@ func getTemplates(path string) (*template.Template, error) {
 	templatePaths := new([]string)
 	for _, pathInfo := range templatePathsRaw {
 		if !pathInfo.IsDir() {
+			fmt.Printf("%s + / + %s \n", absPath, pathInfo.Name())
 			*templatePaths = append(*templatePaths, absPath+"/"+pathInfo.Name())
 		}
 	}
