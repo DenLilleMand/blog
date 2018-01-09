@@ -159,6 +159,7 @@ func main() {
 	connectionString := "user=" + *dbUser + " dbname=" + *dbName + " sslmode=disable"
 	db, err := sql.Open("postgres", connectionString)
 	if err != nil {
+		fmt.Printf("postgresql open failed! \n")
 		log.WithFields(log.Fields{
 			"msg":   err.Error(),
 			"time":  time.Now().Format(LOGGING_DATE_FORMAT),
@@ -169,6 +170,7 @@ func main() {
 
 	err = db.Ping()
 	if err != nil {
+		fmt.Printf("postgresql ping failed!\n")
 		panic(err)
 	}
 
@@ -177,6 +179,7 @@ func main() {
 
 	templates, err := getTemplates("templates")
 	if err != nil {
+		fmt.Printf("get templates\n")
 		log.WithFields(log.Fields{
 			"msg":   err.Error(),
 			"time":  time.Now().Format(LOGGING_DATE_FORMAT),
