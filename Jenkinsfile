@@ -18,8 +18,8 @@ pipeline {
 	    steps {
 		sh 'echo $USER'
 		sh 'sudo chmod +x /home/www/denlillemand.com/run.sh'
-		sh 'cd /home/www/denlillemand.com && forever stopall'
-		sh 'cd /home/www/denlillemand.com && forever start -c /bin/bash /home/www/denlillemand.com/run.sh'
+		sh 'forever stopall'
+		sh 'BUILD_ID=dontKillMe forever start -c /bin/bash /home/www/denlillemand.com/run.sh'
 	    }
 	}
     }
