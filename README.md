@@ -1,6 +1,5 @@
+# Build and code status
 [![Build Status](http://ec2-35-177-116-159.eu-west-2.compute.amazonaws.com:8080/job/blog/job/master/badge/icon)](http://ec2-35-177-116-159.eu-west-2.compute.amazonaws.com:8080/job/blog/job/master/)
-
-
 
 # Namecheap setup of dns
 for jenkins.denlillemand.com i just did a URL redirect record, which amazingly works okay with the jenkins github plugin.
@@ -12,7 +11,7 @@ and the CNAME record for www pointing to denlillemand.com
 How to handle the fact that it kills everything persistent:
 https://wiki.jenkins.io/display/JENKINS/ProcessTreeKiller
 
-#Setting up Jenkins & Github
+# Setting up Jenkins & Github
 Hmm ... i used the jenkins package on ubuntu, 
 which pretty much gives it to you for free on port 8080.
 Just followed the instructions. 
@@ -29,11 +28,11 @@ Nice enough jenkins has built in support for running docker containers, i fought
 Remember to run: 
 
 sudo usermod -a -G docker $USER
+
 sudo usermod -a -G docker jenkins
 
 And remember to reboot the VM for jenkins to get the changes and/or restart the SSH connection if you just want to 
 run the commands your self
-
 
 Mainly using: https//jenkins.io/doc/book/pipeline/docker/ as a reference
 
@@ -45,10 +44,13 @@ https://docs.docker.com/engine/installation/linux/docker-ce/ubuntu/#install-dock
 # Setting up database
 
 1.CREATE DATABASE blog;
+
 2.CREATE USER denlillemand;
+
 3.GRANT ALL PRIVILEGES ON DATABASE blog TO denlillemand;
 
 Remember to log into the 'blog' database before running the following:
+
 4.CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 
@@ -59,3 +61,18 @@ $ goose -dir="migrations" postgres "user=<dbusrname> dbname=<dbname> sslmode=dis
 TODO
 
 ref: https://www.kaihag.com/https-and-go/
+
+# Setting up Github build status & test coverage badges with jenkins
+For the build status badge i used the jenkins plugin: embeddable-build-status-badges, 
+then i changed the security on the jenkins server to matrix-based and for the anonymous user tagged the ones:
+
+Overordnet: Read
+
+Job: ViewStatus
+
+Job: Read
+
+Visninger: Read
+
+
+
