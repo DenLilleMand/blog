@@ -177,7 +177,7 @@ func main() {
 	psqlLogHook := NewPSQLLogHook(db, "log")
 	log.AddHook(psqlLogHook)
 
-	templates, err := getTemplates("templates")
+	templates, err := getTemplates((*templateDir))
 	if err != nil {
 		fmt.Printf("get templates\n")
 		log.WithFields(log.Fields{
