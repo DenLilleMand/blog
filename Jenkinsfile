@@ -16,7 +16,8 @@ pipeline {
 	}
 	stage('deployment') {
 	    steps {
-		sh 'run.sh'
+		sh 'sudo chmod +x run.sh'
+		sh 'sudo ./run.sh'
 	    }
 	}
     }
