@@ -17,7 +17,8 @@ pipeline {
 	stage('deployment') {
 	    steps {
 		sh 'sudo chmod +x run.sh'
-		sh 'sudo ./run.sh'
+		sh 'forever stopall'
+		sh 'forever start -c /bin/bash run.sh'
 	    }
 	}
     }
