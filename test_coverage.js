@@ -3,8 +3,10 @@ const badge = require('gh-badges')
 
 fs.readFile('test_coverage.txt', (err, data) => {
   if (err) throw err;
+    var splitedTestCov = data.split(':');
+    //TODO maybe change the color scheme to red if below like 80%
     const format = {
-      text: ['build', 'passed'],
+      text: [splitedTestCov[0], splitedTestCov[1]],
       colorscheme: 'green',
       template: 'flat',
     }
