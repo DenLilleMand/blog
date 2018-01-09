@@ -23,7 +23,9 @@ I found something out about credentials in jenkins aswell, aparently even though
 
 
 # Jenkins and docker
-Nice enough jenkins has built in support for running docker containers, i fought a long time trying to get forever.js execute a binary Go file but eventually gave up, i think docker is better as a future time investment anyway.
+!!! i am not using jenkins/docker right now, i will leave the docker file for future use though. Maybe i will find it funny to run some tests in a docker container. i went back to deploying with foreverjs the key was adding a JENKINS\_NODE\_COOKIE=dontKillMe before calling forever !!!
+
+Nice enough jenkins has built in support for running docker containers.
 
 Remember to run: 
 
