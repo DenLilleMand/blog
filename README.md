@@ -5,8 +5,10 @@
 # My Personal site
 
 ## Setting up correct githooks for project
+```
 $ chmod +x setup\_project.sh
 $ ./setup\_project.sh
+```
 
 ## Setting up the correct golang binaries
 
@@ -97,3 +99,8 @@ Then i went into the job, and then inside of the branch(because of i have a mult
 there is a new icon called embeddable build status blabla, on that page it gives various embeddables that you can copy paste into 
 html, markdown etc.
 
+## Test coverage badge etc.
+https://github.com/badges, used node.js version 9.x, wrote the script ```test_coverage.js``` that relies on the ```go test -cover``` output that is simply 
+piped to a file in the ```build.sh``` script. Outputs the svg image that i refer to locally.
+The downside is that the test coverage is computed on the client side, but honestly i don't want jenkins to merge changes back into my project, not 
+right now atleast.
