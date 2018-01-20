@@ -5,6 +5,7 @@ webpack
 go build
 cp ../../../../bin/goose ./
 cp -rf dist/* static/
+rm -rf dist/*
 go test -cover | grep % > test_coverage.txt
 node test_coverage.js
 rm test_coverage.txt

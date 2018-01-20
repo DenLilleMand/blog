@@ -4,7 +4,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "realize start",
     "start": "go run main.go",
     "dev": "webpack-dev-server --hot",
     "build": "./build.sh"

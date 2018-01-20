@@ -7,11 +7,15 @@
 <script>
 import MainMenu from 'components/mainmenu.vue'
 import ContactBox from 'components/contactbox.vue'
+import BackgroundGraphics from 'components/backgroundgraphics.vue'
 import fontawesome from 'fontawesome/fontawesome-all.min.js'
+
+
 export default {
     components : {
 	MainMenu,
-	ContactBox
+	ContactBox,
+	BackgroundGraphics
     },
     data () {
 	return {

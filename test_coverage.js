@@ -5,7 +5,7 @@ fs.readFile('test_coverage.txt', (err, data) => {
   if (err) {
    throw err;   
   }
-  console.log(data);
+  //TODO consider the robostness of this
   var splitedTestCov = data.toString().split(':');
   //TODO maybe change the color scheme to red if below like 80%
   const format = {

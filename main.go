@@ -137,6 +137,7 @@ func (controller *Controller) Static(w http.ResponseWriter, r *http.Request, par
 		}).Errorln(errMsg)
 	}
 	fileServer := http.FileServer(http.Dir(controller.staticDir))
+	log.Printf("Trying to load file: %s \n", fileName)
 	r.URL.Path = fileName
 	fileServer.ServeHTTP(w, r)
 }
