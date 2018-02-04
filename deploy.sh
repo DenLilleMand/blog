@@ -1,6 +1,7 @@
 #!/bin/bash
 set +e
 sudo lsof -i tcp:80 | awk 'NR!=1 {print $2}' | sudo xargs kill
+sudo forever stopall
 sudo rm -rf /home/www/denlillemand.com
 sudo mkdir -p /home/www/denlillemand.com/static
 sudo cp -rf ./static/* /home/www/denlillemand.com/static/
