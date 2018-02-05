@@ -11026,10 +11026,16 @@ exports.default = {
 	},
 	data: function data() {
 		return {
+			infos: [{
+				name: "Email",
+				icon: "fas fa-envelope-square",
+				value: "matti@denlillemand.com"
+			}],
 			socialMedias: [{
 				name: "Github",
 				icon: "fab fa-github",
 				url: "https://github.com/denlillemand"
+
 			}, {
 				name: "Linkedin",
 				icon: "fab fa-linkedin-in",
@@ -11038,6 +11044,12 @@ exports.default = {
 		};
 	}
 }; //
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -11318,7 +11330,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -11342,6 +11354,19 @@ var render = function() {
           _vm._v(" "),
           _c(
             "ul",
+            { staticStyle: { "list-style": "none" } },
+            _vm._l(_vm.infos, function(item) {
+              return _c("li", [
+                _c("i", { class: item.icon }),
+                _vm._v(" "),
+                _c("span", [_vm._v(_vm._s(item.value))])
+              ])
+            })
+          ),
+          _vm._v(" "),
+          _c(
+            "ul",
+            { staticStyle: { "list-style": "none" } },
             _vm._l(_vm.socialMedias, function(item) {
               return _c("li", [
                 _c("i", { class: item.icon }),

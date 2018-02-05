@@ -18,7 +18,6 @@ pipeline {
 	    steps {
 		sh 'echo $USER'
 		sh 'sudo chmod +x /home/www/denlillemand.com/run.sh'
-		sh 'forever stopall'
 		sh 'JENKINS_NODE_COOKIE=dontKillMe forever start -c /bin/bash /home/www/denlillemand.com/run.sh'
 	    }
 	}
